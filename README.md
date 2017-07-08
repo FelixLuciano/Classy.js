@@ -93,4 +93,4 @@
 
 ### See this working
 
-<a href='https://jsfiddle.net/TecIce/ba8uy36j' target='_blank'>![](http://i.imgur.com/65Uvdxn.png)]</a>
+[![](http://i.imgur.com/65Uvdxn.png)]](https://jsfiddle.net/TecIce/ba8uy36j)
