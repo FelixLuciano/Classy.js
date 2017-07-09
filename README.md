@@ -5,7 +5,7 @@
 >[https://rawgit.com/TecIce/Classy.js/master/Classy.min.js](https://rawgit.com/TecIce/Classy.js/master/Classy.min.js)
 <br>
 
-### Classy constructor:    `Classy( Classye, Callback );`  
+### Classy constructor: `Classy(classye, Callback);`  
   
 + __Classye__   
   Type: _"String"_  
@@ -27,7 +27,7 @@
 ``````
 <br>
 
-### Classy Getter:    `Classy( Element ).get( Classye );`  
+### Classy Getter: `Classy(Element).get(Classye);`  
   
 + __Element__   
   Type: _"String"_  
@@ -47,7 +47,7 @@
 ``````
 <br>
 
-### Classy Setter:    `Classy( Element, Classye ).get( Arguments );`  
+### Classy Setter: `Classy(Element, Classye).get(Arguments);`  
   
 + __Element__   
   Type: _"String"_  
@@ -70,7 +70,7 @@
 ``````
 <br>
 
-### Element definition:    `<any class="[Classy name]_[argument1]_[argument2]_[arg...]">...</any>`  
+### Element definition: `<any class="[Classy name]_[argument1]_[argument2]_[arg...]">...</any>`  
   
 + __Classy name__   
   Type: _"String"_  
