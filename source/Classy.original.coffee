@@ -1,10 +1,8 @@
 #
-#    Classy.Js By TecIce
-#    https://github.com/TecIce/Classy.js
+#  Classy.Js By TecIce
+#  https://github.com/TecIce/Classy.js
+#  20/08/2017
 #
-#    20/08/2017
-#
-
 class window.Classy
 
   constructor: (@mainArg1, @mainArg2) ->
@@ -34,6 +32,9 @@ class window.Classy
           .split '_'
 
       unless attributes[0] == name then continue
+
+      for attribute, index in attributes
+        if Number attribute then attributes[index] = Number attribute
 
       element.Classy = {} unless element.Classy
       element.Classy[name] = attributes.splice 1
@@ -76,3 +77,16 @@ class window.Classy
 
 
   scope: __scope__
+
+
+### ---------------------------------- ###
+
+console.clear()
+
+Classy 'ClassyTeste', (args, $Classy) ->
+  @innerHTML = args[0]
+
+  @onclick = ->
+    args[0]++
+    $Classy.apply()
+    console.log $Classy.scope

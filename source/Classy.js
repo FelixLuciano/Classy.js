@@ -4,8 +4,7 @@
  *
  *    20/08/2017
  */
- window.Classy = (function Classy() {
-
+window.Classy = (function() {
     var __scope__;
 
     function Classy(mainArg11, mainArg21) {
@@ -18,20 +17,19 @@
             Classy.prototype.register();
         }
     }
+
     if (!__scope__) {
         __scope__ = {};
     }
 
     Classy.prototype.register = function(name, callback) {
-        var attributes, element, i, len, ref;
+        var attribute, attributes, element, i, index, j, len, len1, ref;
         if (name == null) {
             name = mainArg1;
         }
-
         if (callback == null) {
             callback = mainArg2;
         }
-
         if (!(typeof name === 'string' && typeof callback === 'function')) {
             return null;
         }
@@ -45,6 +43,12 @@
             attributes = (element.getAttribute('class').match(new RegExp("(?=" + name + ")(?:\\w+)", 'g')))[0].split('_');
             if (attributes[0] !== name) {
                 continue;
+            }
+            for (index = j = 0, len1 = attributes.length; j < len1; index = ++j) {
+                attribute = attributes[index];
+                if (Number(attribute)) {
+                    attributes[index] = Number(attribute);
+                }
             }
             if (!element.Classy) {
                 element.Classy = {};
