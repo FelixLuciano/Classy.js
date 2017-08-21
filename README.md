@@ -98,7 +98,7 @@
   Type: _{Object}_  
   Returns all defined Classyes, with their respective elements, which in turn, their arguments.
 
-  ``````json
+  ``````js
     {
       MyClassy: {
         action: ƒ (arguments, $Classy),
