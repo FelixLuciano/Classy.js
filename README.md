@@ -2,16 +2,20 @@
 <br>
 
 ### Source it!
->[https://rawgit.com/TecIce/Classy.js/master/Classy.min.js](https://rawgit.com/TecIce/Classy.js/master/Classy.min.js)
+>[https://rawgit.com/TecIce/Classy.js/master/source/Classy.min.js](https://rawgit.com/TecIce/Classy.js/master/source/Classy.min.js)
 <br>
 
-### Classy constructor: `Classy(classye, Callback);`  
-  
-+ __Classye__   
+### Classy constructor: `Classy(Name, Callback(Arguments, $Classy));`  
+
++ __Alias__
+
+  + `Classy().register(Name, Callback(Arguments, $Classy));`
+
++ __Name__   
   Type: _"String"_  
   rule: _Can not contain hyphens_  
   Sets the Classye to call to execute the callback.
- 
+
 + __Callback__  
   Type: _Function(Arguments)_  
   Sets the Classye to call to execute the callback.
@@ -20,76 +24,104 @@
     type: _[Array]_  
     Returns the arguments defined next to Classy in HTML.
 
+  + __$Classy__  
+    type: _{Object}_  
+    Returns classy having the class name and current as predefined arguments.
+
+  + __this__  
+    type: _<Element>_  
+    Return the element where the callback is performing the actions.
+    // If jQuery is imported, the return will be given by the element through jQuery
+
 ``````js
-  Classy('Classye', function(arguments) {
+  Classy('Classye', function(arguments, $Classy) {
     this.innerHTML = arguments[0];
+    //If jQuery is installed
+    this.on('click', function() {
+      alert('Hello world!');
+    });
+    console.log($Classy.scope());
   });
 ``````
 <br>
 
-### Classy Getter: `Classy(Element).get(Classye);`  
-  
-+ __Element__   
-  Type: _"String"_  
-  Sets the HTML element to pick up the Classye.
-  
-+ __Classye__   
-  Type: _"String"_  
-  rule: _Can not contain hyphens_  
-  Defines the Classye to be taken from the HTML element.
-  
-+ __Function return__   
-  Type: _[Array]_  
-  Returns the arguments defined in the element's HTML class.
-
-``````js
-  console.log( Classy('#element').get('Classy') );
-``````
-<br>
-
-### Classy Setter: `Classy(Element, Classye).get(Arguments);`  
-  
-+ __Element__   
-  Type: _"String"_  
-  Sets the HTML element to establish the Classye.
-  
-+ __Classye__   
-  Type: _"String"_  
-  rule: _Can not contain hyphens_  
-  Sets the Classye to be established for the HTML element.
-  
-+ __Arguments__   
-  Type: _{Object}_  
-  Defines the element arguments to be set.
-
-``````js
-  Classy('#element', 'Classy').set({
-    0: 'Argument',
-    1: 123
-  });
-``````
-<br>
 
 ### Element definition: `<any class="[Classy name]_[argument1]_[argument2]_[arg...]">...</any>`  
-  
+
 + __Classy name__   
   Type: _"String"_  
   rule: _Can not contain hyphens_  
-  Defines the classy that the element will execute upon loading.
-  
+  Defines the classye that the element will execute upon loading.
+
 + __Arguments__   
   Type: _"String"_  
   rule: _Can not contain hyphens_  
   Sets the Classye to be established for the HTML element.
-  
+
 + __Character: `_`__   
   Type: _Argument separador_
-  Separates the Classy name and its arguments.
+  Separates the Classye name and its arguments.
 
 ``````html
-  <div class='Classy_argument_123'></div>
+  <div class='Classy_argument_1_2_3'></div>
 ``````
 <br>
+
+
+### Element reloading: `Classy(Name, Element).apply()`
+
++ __Alias__
+
+  + `Classy().apply(Name, Element));`
+
++ __Return__   
+  Type: _Function()_
+  Rerun the callback for an element of a specific classye.
+<br>
+
+
+### Classye reloading: `Classy(name).applyAll()`
+
++ __Alias__
+
+  + `Classy().applyAll(Name));`
+
++ __Return__   
+  Type: _Function()_
+  Rerun the callback for all elements of the classye with the given name.
+<br>
+
+
+### Scope: `Classy().scope()`
+
++ __Return__   
+  Type: _{Object}_  
+  Returns all defined Classyes, with their respective elements, which in turn, their arguments.
+
+  ``````json
+    {
+      MyClassy: {
+        action: ƒ (arguments, $Classy),
+        elements: [
+          0: div#element.MyClassy_arg1_2_3
+            Classy: {
+              MyClassy: [
+                0: 'arg1',
+                1: 2,
+                2: 3
+            ]
+          }
+        ]
+      }
+    }
+  ``````
+
++ __Return__   
+  Type: _{Object}_  
+  Returns all defined Classyes, with their respective elements, which in turn, their arguments.
+
+<br>
+
 
 ### See this working
 
