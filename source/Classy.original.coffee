@@ -77,16 +77,3 @@ class window.Classy
 
 
   scope: __scope__
-
-
-### ---------------------------------- ###
-
-console.clear()
-
-Classy 'ClassyTeste', (args, $Classy) ->
-  @innerHTML = args[0]
-
-  @onclick = ->
-    args[0]++
-    $Classy.apply()
-    console.log $Classy.scope
