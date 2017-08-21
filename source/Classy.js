@@ -1,109 +1,106 @@
-var Classy;
+/*
+ *    Classy.Js By TecIce
+ *    https://github.com/TecIce/Classy.js
+ *
+ *    20/08/2017
+ */
+ window.Classy = (function Classy() {
 
-Classy = (function () {
-  var getElementClassy;
+    var __scope__;
 
-  getElementClassy = function (selector, getClassy) {
-    var attribute, elementClassy, getAttributes, i, len,
-      results;
-    elementClassy = selector.getAttribute('class').match(new RegExp(
-      "(" + getClassy + "){1}(?![a-zA-Z0-9]+)", 'g'));
-    if (!((elementClassy != null) && elementClassy[0] ===
-        getClassy)) {
-      return null;
-    }
-    getClassy = selector.getAttribute('class').match(new RegExp(
-      "(?=" + getClassy + ")(?:\\w+)", 'g'));
-    getAttributes = getClassy[0].split('_').splice(1);
-    results = [];
-    for (i = 0, len = getAttributes.length; i < len; i++) {
-      attribute = getAttributes[i];
-      if (Number(attribute)) {
-        results.push(Number(attribute));
-      } else if (attribute === "") {
-        results.push(null);
-      } else {
-        results.push(attribute);
-      }
-    }
-    return results;
-  };
-
-  function Classy(selector1, callback) {
-    var attributes, element, i, len, ref;
-    this.selector = selector1;
-    this.callback = callback != null ? callback : null;
-    if (!(this instanceof Classy)) {
-      return new Classy(this.selector, this.callback);
-    }
-    if (typeof this.selector === 'string' && typeof this.callback ===
-      'function') {
-      ref = document.querySelectorAll("[class*=" + this.selector +
-        "]");
-      for (i = 0, len = ref.length; i < len; i++) {
-        element = ref[i];
-        attributes = getElementClassy(element, this.selector);
-        if (attributes != null) {
-          this.callback.call(element, attributes);
+    function Classy(mainArg11, mainArg21) {
+        this.mainArg1 = mainArg11;
+        this.mainArg2 = mainArg21;
+        if (!(this instanceof Classy)) {
+            return new Classy(this.mainArg1, this.mainArg2);
         }
-      }
+        if (typeof this.mainArg1 === 'string' && typeof this.mainArg2 === 'function') {
+            Classy.prototype.register();
+        }
     }
-  }
+    if (!__scope__) {
+        __scope__ = {};
+    }
 
-  Classy.prototype.get = function (getClassy) {
-    var selector;
-    if (this.callback != null) {
-      return null;
-    }
-    selector = function () {
-      var element;
-      element = document.querySelectorAll(this.selector);
-      if (element.length >= 2) {
-        return null;
-      } else {
-        return element[0];
-      }
+    Classy.prototype.register = function(name, callback) {
+        var attributes, element, i, len, ref;
+        if (name == null) {
+            name = mainArg1;
+        }
+
+        if (callback == null) {
+            callback = mainArg2;
+        }
+
+        if (!(typeof name === 'string' && typeof callback === 'function')) {
+            return null;
+        }
+        __scope__[name] = {
+            action: callback,
+            elements: []
+        };
+        ref = document.querySelectorAll("[class*=" + name + "]");
+        for (i = 0, len = ref.length; i < len; i++) {
+            element = ref[i];
+            attributes = (element.getAttribute('class').match(new RegExp("(?=" + name + ")(?:\\w+)", 'g')))[0].split('_');
+            if (attributes[0] !== name) {
+                continue;
+            }
+            if (!element.Classy) {
+                element.Classy = {};
+            }
+            element.Classy[name] = attributes.splice(1);
+            __scope__[name].elements.push(element);
+        }
+        return Classy.prototype.applyAll(name);
     };
-    return getElementClassy(selector(), getClassy);
-  };
 
-  Classy.prototype.set = function (setClassy) {
-    var classy, classyeToSet, element, elementClassy,
-      getClassyClass, i, index, len, newClassyClass;
-    if (typeof this.callback !== 'string') {
-      return null;
-    }
-    element = function () {
-      element = document.querySelectorAll(this.selector);
-      if (element.length >= 2) {
-        return null;
-      } else {
-        return element = element[0];
-      }
+    Classy.prototype.applyAll = function(name) {
+        var element, i, len, ref, results, selector;
+        if (name == null) {
+            name = this.mainArg1;
+        }
+        if (this.name != null) {
+            return null;
+        }
+        ref = __scope__[name].elements;
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+            element = ref[i];
+            selector = jQuery ? $(element) : element;
+            results.push(__scope__[name].action.call(selector, element.Classy[name], Classy(name, element)));
+        }
+        return results;
     };
-    elementClassy = getElementClassy(element(), this.callback);
-    getClassyClass = elementClassy;
-    getClassyClass.unshift(this.callback);
-    getClassyClass = getClassyClass.toString().replace(/,/g,
-      '_');
-    element.classList.remove(getClassyClass);
-    elementClassy.shift();
-    for (index in setClassy) {
-      classy = setClassy[index];
-      elementClassy[index] = classy;
-    }
-    newClassyClass = this.callback;
-    for (i = 0, len = elementClassy.length; i < len; i++) {
-      classyeToSet = elementClassy[i];
-      if (classyeToSet) {
-        newClassyClass += "_" + classyeToSet;
-      } else {
-        newClassyClass += '_';
-      }
-    }
-    return element.classList.add(newClassyClass);
-  };
 
-  return Classy;
+    Classy.prototype.apply = function(name, element) {
+        var action, actsMatch, argumentNames, callback, callbackActs, callbackArgs, fnString, i, ignoreComents, len, selector;
+        if (name == null) {
+            name = this.mainArg1;
+        }
+        if (element == null) {
+            element = this.mainArg2;
+        }
+        if ((this.name != null) && (this.mainArg2 != null)) {
+            return null;
+        }
+        selector = jQuery ? $(element) : element;
+        ignoreComents = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))|(^\s*)/mg;
+        argumentNames = /([^\s,]+)/g;
+        fnString = __scope__[name].action.toString().replace(ignoreComents, '');
+        callbackArgs = fnString.slice(fnString.indexOf('(') + 1, fnString.indexOf(')')).match(argumentNames);
+        actsMatch = new RegExp("(?!(" + callbackArgs[0] + "))(.*" + callbackArgs[0] + ".*)", 'gm');
+        callbackActs = fnString.match(actsMatch).slice(1);
+        callback = '';
+        for (i = 0, len = callbackActs.length; i < len; i++) {
+            action = callbackActs[i];
+            callback += action;
+        }
+        return new Function(callbackArgs[0], callbackArgs[1], callback).call(selector, element.Classy[name], Classy(name, element));
+    };
+
+    Classy.prototype.scope = __scope__;
+
+    return Classy;
 
 })();
