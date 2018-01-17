@@ -3,6 +3,7 @@
 #  https://github.com/TecIce/Classy.js
 #  20/08/2017
 #
+
 class window.Classy
 
   constructor: (@mainArg1, @mainArg2) ->
@@ -15,7 +16,7 @@ class window.Classy
   __scope__ = {} unless __scope__
 
 
-  register: (name = mainArg1, callback = mainArg2) ->
+  register: (name = @mainArg1, callback = @mainArg2) ->
     unless typeof name == 'string' and typeof callback == 'function' then return null
 
     __scope__[name] =
