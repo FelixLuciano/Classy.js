@@ -72,7 +72,7 @@ window.Classy = (function() {
     results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       element = ref[i];
-      selector = jQuery ? $(element) : element;
+      selector = typeof jQuery !== "undefined" && jQuery !== null ? $(element) : element;
       results.push(__scope__[name].action.call(selector, element.Classy[name], Classy(name, element)));
     }
     return results;
@@ -89,7 +89,7 @@ window.Classy = (function() {
     if ((this.name != null) && (this.mainArg2 != null)) {
       return null;
     }
-    selector = jQuery ? $(element) : element;
+    selector = typeof jQuery !== "undefined" && jQuery !== null ? $(element) : element;
     ignoreComents = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))|(^\s*)/mg;
     argumentNames = /([^\s,]+)/g;
     fnString = __scope__[name].action.toString().replace(ignoreComents, '');
