@@ -48,7 +48,7 @@ class window.Classy
     if @name? then return null
 
     for element in __scope__[name].elements
-      selector = if jQuery then $(element) else element
+      selector = if jQuery? then $(element) else element
       __scope__[name].action
         .call selector, element.Classy[name], Classy(name, element)
 
@@ -56,7 +56,7 @@ class window.Classy
   apply: (name = @mainArg1, element = @mainArg2) ->
     if @name? and @mainArg2? then return null
 
-    selector      = if jQuery then $(element) else element
+    selector      = if jQuery? then $(element) else element
     ignoreComents = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))|(^\s*)/mg
     argumentNames = /([^\s,]+)/g
 
